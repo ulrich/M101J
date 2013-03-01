@@ -1,0 +1,15 @@
+/.classpath
+/.project
+/.settings
+
+# other
+*.iws
+*.iml
+*.idea/
+*.ipr
+
+*.log
+/*.zip
+plugin.xml
+/target
+/web-app
