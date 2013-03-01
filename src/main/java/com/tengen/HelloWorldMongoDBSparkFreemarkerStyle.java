@@ -1,5 +1,9 @@
 package com.tengen;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import spark.Request;
@@ -7,12 +11,10 @@ import spark.Response;
 import spark.Route;
 
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import static spark.Spark.get;
 
-public class HelloWorldSparkFreemarkerStyle {
+public class HelloWorldMongoDBSparkFreemarkerStyle {
 
     public static void main(String[] args) {
         final Configuration configuration = new Configuration();
@@ -26,10 +28,15 @@ public class HelloWorldSparkFreemarkerStyle {
                 try {
                     Template template = configuration.getTemplate("hello.ftl");
 
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put("name", "World!");
+                    MongoClient mongoClient = new MongoClient();
 
-                    template.process(map, writer);
+                    DB course = mongoClient.getDB("course");
+
+                    DBCollection helloCollection = course.getCollection("hello");
+
+                    DBObject dbObject = helloCollection.findOne();
+
+                    template.process(dbObject, writer);
 
                 } catch (Exception e) {
                     halt(500);
