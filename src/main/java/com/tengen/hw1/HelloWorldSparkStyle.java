@@ -1,4 +1,4 @@
-package com.tengen;
+package com.tengen.hw1;
 
 import spark.Request;
 import spark.Response;

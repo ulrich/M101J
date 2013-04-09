@@ -1,4 +1,4 @@
-package com.tengen;
+package com.tengen.hw1;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;

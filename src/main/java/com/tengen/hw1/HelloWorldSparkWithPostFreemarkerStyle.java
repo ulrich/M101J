@@ -1,4 +1,4 @@
-package com.tengen;
+package com.tengen.hw1;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -7,12 +7,13 @@ import spark.Response;
 import spark.Route;
 
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.get;
 
-public class HelloWorldSparkFreemarkerStyle {
+public class HelloWorldSparkWithPostFreemarkerStyle {
 
     public static void main(String[] args) {
         final Configuration configuration = new Configuration();
@@ -27,7 +28,8 @@ public class HelloWorldSparkFreemarkerStyle {
                     Template template = configuration.getTemplate("hello.ftl");
 
                     Map<String, Object> map = new HashMap<String, Object>();
-                    map.put("name", "World!");
+                    map.put("fruits",
+                            Arrays.asList("Apple", "Banana", "Orange", "Peach"));
 
                     template.process(map, writer);
 
