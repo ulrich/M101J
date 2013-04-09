@@ -1,0 +1,50 @@
+// hw5.2
+
+
+//		{
+//			"city" : "HARTFORD",
+//			"loc" : [
+//				-72.694734,
+//				41.749841
+//			],
+//			"pop" : 47841,
+//			"state" : "CT",
+//			"_id" : "06106"
+//		},
+
+use hw5
+
+//db.hw51_zips.aggregate(
+//	[
+//		{ $match: { pop: {$gt: 25000} } },
+//		{ $match: { state: {$in: ["CT", "NJ"] } } },
+//		//{ $match: { $or: [ {state: "CT"}, {state: "NJ"} ] } },
+//		{ $group: { _id: "$_id", pop: {$sum: "$pop"} } },
+//		{ $group: { _id: null, average: {$avg: "$pop"} } }
+//	]
+//)
+
+db.hw51_zips.aggregate([
+  {
+    "$match": {
+      state: {"$in": ["CT", "NJ"]}
+    }
+  },
+  {
+    "$group": {
+      "_id": {"state": "$state", "city": "$city"},
+      tPop: {"$sum": "$pop" }
+    }
+  },
+  {
+    "$match": {
+      "tPop": { "$gt": 25000 }
+    }
+  }, 
+  {
+    "$group": {
+      _id: "$state",
+      average: {"$avg": "$tPop"}
+    }
+  }
+])

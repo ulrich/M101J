@@ -1,0 +1,30 @@
+// hw5.3
+
+use hw5
+
+db.hw51_grades.aggregate([
+{
+"$unwind": "$scores"
+},
+{
+"$match": {
+"scores.type": {
+"$in": ["exam", "homework"]
+}
+}
+},
+{
+"$group": {
+_id: {"student_id": "$student_id", "class_id": "$class_id"},
+sGPA: {"$avg": "$scores.score"}
+}
+},
+{
+"$group": {
+_id: {"class_id": "$_id.class_id"},
+cGPA: {"$avg": "$sGPA"}
+}
+}
+,
+{"$sort":{cGPA:-1}}
+])

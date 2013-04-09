@@ -1,0 +1,3 @@
+What would be the appropriate settings for w and j?
+
+w="majority", j=1
