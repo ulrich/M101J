@@ -1,1 +1,3 @@
-no yet :)
+db.messages.aggregate([{$unwind:"$headers.To"},{$group:{_id:{"expediteur":"$headers.From","destinataire":"$headers.To"},"total":{$sum:1}}},{$sort:{"total":-1}},{$limit: 10}])
+
+susan.mara@enron.com to richard.shapiro@enron.com
